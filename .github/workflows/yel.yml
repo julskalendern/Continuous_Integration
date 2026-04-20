@@ -24,22 +24,22 @@ jobs:
          fi 
 #считаем эталонную сумму
       - run: |
-        LOC=$(cat index.html | tr -d '\n\r ' | md5sum | awk '{print $1}')
-        REM=$(curl -s http://81.26.179.100:9889 | tr -d '\n\r ' | md5sum | awk '{print $1}')
-        if ["$LOC" != "$REM"]; then
+         LOC=$(cat index.html | tr -d '\n\r ' | md5sum | awk '{print $1}')
+         REM=$(curl -s http://81.26.179.100:9889 | tr -d '\n\r ' | md5sum | awk '{print $1}')
+         if ["$LOC" != "$REM"]; then
            echo "AHTUNG md5"
            exit 1
-        fi
+         fi
 #грохаем контейнер
-     -run: docker rm -f ngx || true
-     -if: failure()
-      uses: dawidd6/action-send-mail@v3
-      with:
-        server_address: smtp.yandex.ru
-        server_port: 465
-        username: ja*@ya.ru
-        password: "***"
-        to: ja*@ya.ru
-        subject: AHTUNG
-        body: |
-           Something goes wrong
+      - run: docker rm -f ngx || true
+      - if: failure()
+        uses: dawidd6/action-send-mail@v3
+        with:
+           server_address: smtp.yandex.ru
+           server_port: 465
+           username: ja*@ya.ru
+           password: "***"
+           to: ja*@ya.ru
+           subject: AHTUNG
+           body: |
+            Something goes wrong
