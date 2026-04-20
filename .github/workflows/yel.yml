@@ -21,7 +21,8 @@ jobs:
          if [ "$RESP" != "200" ]; then
            echo "AHTUNG code"
            exit 1
-         fi echo "$RESP"
+         fi 
+         echo "$RESP"
 #считаем эталонную сумму
       - run: |
          LOC=$(cat index.html | tr -d '\n\r ' | md5sum | awk '{print $1}')
@@ -29,7 +30,8 @@ jobs:
          if [ "$LOC" != "$REM" ]; then
            echo "AHTUNG md5"
            exit 1
-         fi echo  "allt ar klar"
+         fi 
+         echo  "allt ar klar"
 #грохаем контейнер
       - run: docker rm -f ngx || true
       - if: failure()
