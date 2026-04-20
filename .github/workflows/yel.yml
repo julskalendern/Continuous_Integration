@@ -1,0 +1,45 @@
+name: nginx_index
+on: 
+  push:
+    paths: 
+      - index.html
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+#судя по докам это нужно
+      - uses: actions/checkout@v3
+#cудя по докам лучше использовать при докере
+      - uses: docker/setup-buildx-action@v2
+#запускаем nginx и даем запуститься
+      - run: |
+         docker run -d --name ngx -p 9889:80 -v index.html:/usr/share/nginx/html/index.html
+         sleep 10
+#проверяем статус
+      - run: |
+         RESP=$(curl -o /dev/null -s -w "%{http_code}" http://81.26.179.100:9889)
+         if ["$RESP" != "200"]; then
+           echo "AHTUNG code"
+           exit 1
+         fi 
+#считаем эталонную сумму
+      - run: |
+        LOC=$(cat index.html | tr -d '\n\r ' | md5sum | awk '{print $1}')
+        REM=$(curl -s http://81.26.179.100:9889 | tr -d '\n\r ' | md5sum | awk '{print $1}')
+        if ["$LOC" != "$REM"]; then
+           echo "AHTUNG md5"
+           exit 1
+        fi
+#грохаем контейнер
+     -run: docker rm -f ngx || true
+     -if: failure()
+      uses: dawidd6/action-send-mail@v3
+      with:
+        server_address: smtp.yandex.ru
+        server_port: 465
+        username: ja*@ya.ru
+        password: "***"
+        to: ja*@ya.ru
+        subject: AHTUNG
+        body: |
+           Something goes wrong
