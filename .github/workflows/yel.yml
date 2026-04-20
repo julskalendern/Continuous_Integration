@@ -18,7 +18,7 @@ jobs:
 #проверяем статус
       - run: |
          RESP=$(curl -o /dev/null -s -w "%{http_code}" http://localhost:9889)
-         if ["$RESP" != "200"]; then
+         if [ "$RESP" != "200" ]; then
            echo "AHTUNG code"
            exit 1
          fi 
@@ -26,7 +26,7 @@ jobs:
       - run: |
          LOC=$(cat index.html | tr -d '\n\r ' | md5sum | awk '{print $1}')
          REM=$(curl -s http://localhost:9889 | tr -d '\n\r ' | md5sum | awk '{print $1}')
-         if ["$LOC" != "$REM"]; then
+         if [ "$LOC" != "$REM" ]; then
            echo "AHTUNG md5"
            exit 1
          fi
