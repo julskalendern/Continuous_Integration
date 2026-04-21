@@ -1,4 +1,4 @@
-<h1>CI c использование github/workflows:</h1>
+<h1>CI c использованием github/workflows:</h1>
 
 <p>При изменении файла index.html: <br>
  
