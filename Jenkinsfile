@@ -7,7 +7,7 @@ pipeline {
             steps {
                 
                 sh '''
-				docker run -d --name ngx -p 9889:80 -v \$(pwd)/index.html:/usr/share/nginx/html/index.html nginx:latest
+				docker run -d --name ngx -p 9889:80 -v index.html:/usr/share/nginx/html/index.html nginx:latest
 				sleep 10
 				'''
             }
