@@ -17,7 +17,7 @@ pipeline {
                
                 script {
                     def resp = sh(script: "curl -s -o /dev/null -w '%{http_code}' http://localhost:9889", returnStatus: true, returnStdout: true)
-                    if (resp.trim() != '200') {
+                    if (resp != '200') {
                         error "AHTUNG code ${resp}"
                     }
                 }
