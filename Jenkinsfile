@@ -7,8 +7,8 @@ pipeline {
             steps {
                 
                 sh '''
-				chown -R www-data:www-data $(pwd)
-				docker run -d --name ngx -p 9889:80 -v $(pwd)/index.html:/usr/share/nginx/html/ --network my-app-network nginx:latest
+				chown -R www-data:www-data /home/jenkins/workspace/helvete_git
+				docker run -d --name ngx -p 9889:80 -v /home/jenkins/workspace/helvete_git/index.html:/usr/share/nginx/html/ --network my-app-network nginx:latest
 				sleep 10
 				'''
             }
