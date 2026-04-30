@@ -7,6 +7,7 @@ pipeline {
             steps {
                 
                 sh '''
+				sleep 10
 				docker run -d --name ngx -p 9889:80 --mount type=bind,source=/var/jenkins_home/workspace/helvete_git,target=/usr/share/nginx/html nginx:latest
 				sleep 10
 				'''
