@@ -39,7 +39,7 @@ pipeline {
         failure {
             
             sh '''
-            echo "AHTUNG." | mail -s "Something goes wrong" ja*@ya.ru
+            echo "AHTUNG"
             '''
         }
        
