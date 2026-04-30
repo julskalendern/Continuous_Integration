@@ -34,10 +34,7 @@ pipeline {
         }
     }
     post { 
-		always {
-            sh "docker rm -f ngx || true"
-        }
-        failure {
+		   failure {
             
             sh '''
             echo "AHTUNG"
