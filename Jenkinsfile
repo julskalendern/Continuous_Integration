@@ -17,7 +17,7 @@ pipeline {
             steps {
                
                 script {
-                    def resp = sh(script: "curl -s -o /dev/null -w '%{http_code}' http://localhost:9889", returnStatus: true, returnStdout: true)
+                    def resp = sh(script: "curl -s -o /dev/null -w '%{http_code}' http://ngx:9889", returnStatus: true, returnStdout: true)
                     if (resp != '200') {
                         error "AHTUNG code ${resp}"
                     }
