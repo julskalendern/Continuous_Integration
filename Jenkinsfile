@@ -8,7 +8,7 @@ pipeline {
                 
                 sh '''
 				sleep 10
-				docker run -d --name ngx -p 9889:80 -v $(pwd)/index.html:/usr/share/nginx/html/ nginx:latest
+				docker run -d --name ngx -p 9889:80 -v $(pwd)/index.html:/usr/share/nginx/html/ --network my-app-network nginx:latest
 				sleep 10
 				'''
             }
